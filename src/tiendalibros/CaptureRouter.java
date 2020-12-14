@@ -11,13 +11,18 @@ import net.sf.clipsrules.jni.Router;
  *
  * @author pablo
  */
-class CaptureRouter implements Router{
+public class CaptureRouter implements Router{
     
-    javax.swing.JTextArea recomendacionPanel;
+    public String texto;
     
-    public CaptureRouter(javax.swing.JTextArea recomendacionPanel){
+    public CaptureRouter(){
         super();
-        this.recomendacionPanel = recomendacionPanel;
+        texto = new String();
+    }
+    
+    public String getTexto(){
+        System.out.println("Devuelto: " + texto);
+        return(texto);
     }
     
     @Override
@@ -51,8 +56,9 @@ class CaptureRouter implements Router{
          String routerName,
          String printString)
          {
-             System.out.println(printString);
-          this.recomendacionPanel.setText(printString);
+            this.texto = new String(printString);
+            System.out.println(printString);
+             
          }
     @Override
       public int getchar(
