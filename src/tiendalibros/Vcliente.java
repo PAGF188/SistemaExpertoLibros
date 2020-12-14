@@ -328,8 +328,31 @@ public class Vcliente extends javax.swing.JFrame {
 
     private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
         // TODO add your handling code here:
-        //al comprar un libro añadimos titulo al id del cliente
-        //clips.assertString(cliente)
+        //añadimos libro en los libros del cliente. Si cliente no existe ya.
+        boolean existe = false;
+        String libro_comprado = libros.getSelectedValue();
+        try{
+            String evalStr = "(find-all-facts ((?c Cliente)) TRUE)";
+            MultifieldValue mv = (MultifieldValue) clips.eval(evalStr);
+            
+            for (int i = 0; i <= mv.size()-1; i++){
+                FactAddressValue fv = (FactAddressValue) mv.get(i);
+                String id_aux = ((LexemeValue) fv.getFactSlot("id")).lexemeValue();
+                if(id_aux.equals(cliente)){
+                    existe=true;
+                }
+            }
+            if(existe==false){
+                clips.assertString("(Cliente (id "+cliente+")(edad 21)(libros_comprados "+libro_comprado+"))");
+                clips.run();
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+         String evalStr = "(find-all-facts ((?c Cliente)) TRUE)";
+         MultifieldValue mv = (MultifieldValue) clips.eval(evalStr);
+         System.out.println(mv);
     }//GEN-LAST:event_comprarActionPerformed
 
 
