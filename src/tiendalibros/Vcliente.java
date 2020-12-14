@@ -344,15 +344,17 @@ public class Vcliente extends javax.swing.JFrame {
             }
             if(existe==false){
                 clips.assertString("(Cliente (id "+cliente+")(edad 21)(libros_comprados "+libro_comprado+"))");
-                clips.run();
             }
+            
+            
+            String evalStr2 = "(find-all-facts ((?c Cliente)) TRUE)";
+            MultifieldValue mv2 = (MultifieldValue) clips.eval(evalStr2);
+            System.out.println(mv2);
+            FactAddressValue fv2 = (FactAddressValue) mv2.get(0);
+            System.out.println(fv2.getFactSlot("libros_comprados")); 
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        
-         String evalStr = "(find-all-facts ((?c Cliente)) TRUE)";
-         MultifieldValue mv = (MultifieldValue) clips.eval(evalStr);
-         System.out.println(mv);
     }//GEN-LAST:event_comprarActionPerformed
 
 

@@ -1,5 +1,5 @@
 (deffacts BHinicial
- 	(Cliente (id C1)(edad 20)(libros_comprados "libro1" "libro2" "libro9"))
+ 	;(Cliente (id C1)(edad 20)(libros_comprados "libro1" "libro2" "libro9"))
 
  	(Libro (titulo "libro1")(autor Pepe)(genero narrativo)(tematica aventuras)(anho 2000)(movimiento_literario actual)(tipo_de_publico adulto))
  	(Libro (titulo "libro2")(autor Miguel)(genero narrativo)(tematica amor)(anho 1812)(movimiento_literario romantica)(tipo_de_publico adulto))
