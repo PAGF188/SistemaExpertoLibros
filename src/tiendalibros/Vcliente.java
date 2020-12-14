@@ -329,6 +329,7 @@ public class Vcliente extends javax.swing.JFrame {
     private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
         // TODO add your handling code here:
         //al comprar un libro añadimos titulo al id del cliente
+        //clips.assertString(cliente)
     }//GEN-LAST:event_comprarActionPerformed
 
 
