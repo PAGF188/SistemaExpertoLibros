@@ -6,7 +6,6 @@
 package tiendalibros;
 
 import java.util.HashMap;
-import javax.swing.DefaultListModel;
 import net.sf.clipsrules.jni.Environment;
 import net.sf.clipsrules.jni.FactAddressValue;
 import net.sf.clipsrules.jni.LexemeValue;
@@ -21,12 +20,14 @@ public class Vcliente extends javax.swing.JFrame {
     private Environment clips;
     private Vinicio vi;
     private HashMap<String, Libro> lista_libros;
+    private String cliente;
     
-    public Vcliente(Vinicio vi, Environment clips) {
+    public Vcliente(Vinicio vi, Environment clips, String nombre) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.clips = clips;
         this.vi = vi;
+        this.cliente = nombre;
         lista_libros = new HashMap<>();
         this.setVisible(true);
         this.setResizable(false);
@@ -155,6 +156,11 @@ public class Vcliente extends javax.swing.JFrame {
         comprar.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         comprar.setForeground(new java.awt.Color(254, 254, 254));
         comprar.setText("COMPRAR");
+        comprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comprarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
         jLabel8.setText("Ep. hist:");
@@ -279,7 +285,7 @@ public class Vcliente extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,9 +296,7 @@ public class Vcliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -321,6 +325,11 @@ public class Vcliente extends javax.swing.JFrame {
         publico.setText(lista_libros.get(tit_aux).getTipo_publico());
         epoca_historica.setText(lista_libros.get(tit_aux).getEpoca_historica());
     }//GEN-LAST:event_librosValueChanged
+
+    private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
+        // TODO add your handling code here:
+        //al comprar un libro añadimos titulo al id del cliente
+    }//GEN-LAST:event_comprarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
