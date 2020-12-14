@@ -291,7 +291,7 @@ public class Vadmin extends javax.swing.JFrame {
         tipo_publico.setSelectedIndex(0);
         
         //depuracion
-        clips.run();
+        //clips.run();
         
     }//GEN-LAST:event_añadirActionPerformed
 

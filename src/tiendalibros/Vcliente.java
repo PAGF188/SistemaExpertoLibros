@@ -20,17 +20,17 @@ public class Vcliente extends javax.swing.JFrame {
 
     private Environment clips;
     private Vinicio vi;
+    private HashMap<String, Libro> lista_libros;
     
     public Vcliente(Vinicio vi, Environment clips) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.clips = clips;
         this.vi = vi;
+        lista_libros = new HashMap<>();
         this.setVisible(true);
         this.setResizable(false);
         this.actualizarLibros();
-       
-       
     }
     
     public void actualizarLibros(){
@@ -39,12 +39,22 @@ public class Vcliente extends javax.swing.JFrame {
             String evalStr = "(find-all-facts ((?l Libro)) TRUE)";
             MultifieldValue mv = (MultifieldValue) clips.eval(evalStr);
             
-            //recorremos mv almacenando el titulo del libro.
+            
             String[] aux = new String[mv.size()];
             for (int i = 0; i <= mv.size()-1; i++){
                 FactAddressValue fv = (FactAddressValue) mv.get(i);
                 aux[i] = ((LexemeValue) fv.getFactSlot("titulo")).lexemeValue();
-                System.out.println(aux[i]);
+                Libro libro_ = new Libro(aux[i]);
+                
+                //resto de propiedades:
+                libro_.setAutor(((LexemeValue) fv.getFactSlot("autor")).lexemeValue());
+                libro_.setGenero(((LexemeValue) fv.getFactSlot("genero")).lexemeValue());
+                libro_.setTematica(((LexemeValue) fv.getFactSlot("tematica")).lexemeValue());
+                libro_.setTipo_publico(((LexemeValue) fv.getFactSlot("tipo_de_publico")).lexemeValue());
+                libro_.setMovimiento_literario(((LexemeValue) fv.getFactSlot("movimiento_literario")).lexemeValue());
+                libro_.setEpoca_historica(((LexemeValue) fv.getFactSlot("epoca_historica")).lexemeValue());
+                lista_libros.put(aux[i], libro_);
+                //System.out.println(aux[i]);
             }
             //actualizamos lista
             libros.setListData(aux);
@@ -87,16 +97,16 @@ public class Vcliente extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(309, Short.MAX_VALUE))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         jButton4.setBackground(new java.awt.Color(0, 63, 90));
@@ -127,10 +137,10 @@ public class Vcliente extends javax.swing.JFrame {
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(65, 65, 65))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,9 +148,9 @@ public class Vcliente extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
