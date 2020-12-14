@@ -41,6 +41,7 @@ public class Vcliente extends javax.swing.JFrame {
         movimiento_literario.setEditable(false);
         publico.setEditable(false);
         epoca_historica.setEditable(false);
+        recomendacionPanel.setEditable(false);
     }
     
     public void actualizarLibros(){
@@ -103,6 +104,8 @@ public class Vcliente extends javax.swing.JFrame {
         epoca_historica = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        recomendacionPanel = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -264,6 +267,12 @@ public class Vcliente extends javax.swing.JFrame {
             }
         });
 
+        recomendacionPanel.setBackground(new java.awt.Color(0, 63, 95));
+        recomendacionPanel.setColumns(20);
+        recomendacionPanel.setForeground(new java.awt.Color(254, 254, 254));
+        recomendacionPanel.setRows(5);
+        jScrollPane2.setViewportView(recomendacionPanel);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -274,7 +283,9 @@ public class Vcliente extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -285,7 +296,9 @@ public class Vcliente extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -304,6 +317,7 @@ public class Vcliente extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // cerrar TODO
+        clips.destroy();
         System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -343,15 +357,17 @@ public class Vcliente extends javax.swing.JFrame {
                 }
             }
             if(existe==false){
+                //añadimos hecho del cliente con sus libros
                 clips.assertString("(Cliente (id "+cliente+")(edad 21)(libros_comprados \""+libro_comprado+"\"))");
+                //ejecutamos motor de recomendación.
+                clips.addRouter(new CaptureRouter(recomendacionPanel));
+                recomendacionPanel.setEditable(true);
+                recomendacionPanel.setText("asdasd");
+                clips.run();
+                recomendacionPanel.setEditable(false);
+
             }
             
-            String evalStr2 = "(find-all-facts ((?c Cliente)) TRUE)";
-            MultifieldValue mv2 = (MultifieldValue) clips.eval(evalStr2);
-            System.out.println(mv2);
-            FactAddressValue fv2 = (FactAddressValue) mv2.get(0);
-            System.out.println(fv2.getFactSlot("libros_comprados")); 
-            clips.run();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -378,9 +394,11 @@ public class Vcliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> libros;
     private javax.swing.JTextField movimiento_literario;
     private javax.swing.JTextField publico;
+    public javax.swing.JTextArea recomendacionPanel;
     private javax.swing.JTextField tematica;
     private javax.swing.JTextField titulo;
     // End of variables declaration//GEN-END:variables

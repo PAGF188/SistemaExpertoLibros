@@ -261,6 +261,7 @@ public class Vadmin extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // cerrar TODO
+        clips.destroy();
         System.exit(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
