@@ -5,7 +5,10 @@
  */
 package tiendalibros;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import javax.swing.AbstractListModel;
 import net.sf.clipsrules.jni.Environment;
 import net.sf.clipsrules.jni.FactAddressValue;
 import net.sf.clipsrules.jni.LexemeValue;
@@ -19,14 +22,16 @@ public class Vcliente extends javax.swing.JFrame {
 
     private Environment clips;
     private Vinicio vi;
-    private HashMap<String, Libro> lista_libros;
-    private String cliente;
+    private HashMap<String, Libro> lista_libros;    //Lisa de libros con atributos leiod sde CLIPS
+    private String cliente;   //nombre del cliente pasado en pantalla anterior
+    private ArrayList<String> carrito;     
     
     public Vcliente(Vinicio vi, Environment clips, String nombre) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.clips = clips;
         this.vi = vi;
+        this.carrito = new ArrayList<>();
         this.cliente = nombre;
         lista_libros = new HashMap<>();
         this.setVisible(true);
@@ -102,6 +107,7 @@ public class Vcliente extends javax.swing.JFrame {
         comprar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         epoca_historica = new javax.swing.JTextField();
+        anadir = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -170,6 +176,16 @@ public class Vcliente extends javax.swing.JFrame {
 
         epoca_historica.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
 
+        anadir.setBackground(new java.awt.Color(0, 63, 90));
+        anadir.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        anadir.setForeground(new java.awt.Color(254, 254, 254));
+        anadir.setText("AÑADIR A CARRITO");
+        anadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anadirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -194,14 +210,6 @@ public class Vcliente extends javax.swing.JFrame {
                                 .addComponent(tematica, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(autor)
                             .addComponent(titulo)))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(comprar)
-                            .addGap(120, 120, 120))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(epoca_historica, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,8 +217,17 @@ public class Vcliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(publico, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(publico, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(anadir)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comprar))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(epoca_historica, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,8 +258,11 @@ public class Vcliente extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(epoca_historica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addComponent(comprar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comprar)
+                            .addComponent(anadir))
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -286,7 +306,7 @@ public class Vcliente extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,6 +350,7 @@ public class Vcliente extends javax.swing.JFrame {
     /*AL SELECCIONAL UN ELEMENTO DE LA LISTA MOSTRAMOS INFORMACIÓN DE ESE LIBRO*/
     private void librosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_librosValueChanged
         // TODO add your handling code here:
+        try{
         String tit_aux = libros.getSelectedValue();
         titulo.setText(lista_libros.get(tit_aux).getTitulo());
         autor.setText(lista_libros.get(tit_aux).getAutor());
@@ -338,6 +359,9 @@ public class Vcliente extends javax.swing.JFrame {
         movimiento_literario.setText(lista_libros.get(tit_aux).getMovimiento_literario());
         publico.setText(lista_libros.get(tit_aux).getTipo_publico());
         epoca_historica.setText(lista_libros.get(tit_aux).getEpoca_historica());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_librosValueChanged
 
     private void comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarActionPerformed
@@ -358,7 +382,12 @@ public class Vcliente extends javax.swing.JFrame {
             }
             if(existe==false){
                 //añadimos hecho del cliente con sus libros
-                clips.assertString("(Cliente (id "+cliente+")(edad 21)(libros_comprados \""+libro_comprado+"\"))");
+                String aux_ = new String();
+                for(String aux: carrito){
+                    aux_ = aux_ + aux + " ";
+                }
+                
+                clips.assertString("(Cliente (id "+cliente+")(edad 21)(libros_comprados "+aux_+"))");
                 //ejecutamos motor de recomendación.
                 CaptureRouter router = new CaptureRouter(recomendationPanel);
                 clips.addRouter(router);
@@ -370,8 +399,23 @@ public class Vcliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comprarActionPerformed
 
+    private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
+        // TODO add your handling code here:
+        String libro_seleccionado = "\"" + libros.getSelectedValue() + "\"";
+        carrito.add(libro_seleccionado);
+        lista_libros.remove(libros.getSelectedValue());
+        String[] aux = new String[lista_libros.size()];
+        int i=0;
+        for (Map.Entry<String, Libro> entry : lista_libros.entrySet()) {
+            aux[i] = entry.getKey();
+            i++;
+        }
+        libros.setListData(aux);
+    }//GEN-LAST:event_anadirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton anadir;
     private javax.swing.JTextField autor;
     private javax.swing.JButton comprar;
     private javax.swing.JTextField epoca_historica;
