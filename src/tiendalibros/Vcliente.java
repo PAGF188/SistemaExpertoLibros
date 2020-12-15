@@ -104,7 +104,8 @@ public class Vcliente extends javax.swing.JFrame {
         epoca_historica = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        recomendationPanel = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        recomendationPanel = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -266,13 +267,11 @@ public class Vcliente extends javax.swing.JFrame {
             }
         });
 
-        recomendationPanel.setBackground(new java.awt.Color(0, 63, 95));
+        recomendationPanel.setBackground(new java.awt.Color(0, 63, 94));
+        recomendationPanel.setColumns(20);
         recomendationPanel.setForeground(new java.awt.Color(254, 254, 254));
-        recomendationPanel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recomendationPanelActionPerformed(evt);
-            }
-        });
+        recomendationPanel.setRows(5);
+        jScrollPane2.setViewportView(recomendationPanel);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -285,7 +284,7 @@ public class Vcliente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(recomendationPanel)
+                    .addComponent(jScrollPane2)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -297,8 +296,8 @@ public class Vcliente extends javax.swing.JFrame {
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(recomendationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
 
@@ -361,20 +360,15 @@ public class Vcliente extends javax.swing.JFrame {
                 //añadimos hecho del cliente con sus libros
                 clips.assertString("(Cliente (id "+cliente+")(edad 21)(libros_comprados \""+libro_comprado+"\"))");
                 //ejecutamos motor de recomendación.
-                CaptureRouter router = new CaptureRouter();
+                CaptureRouter router = new CaptureRouter(recomendationPanel);
                 clips.addRouter(router);
                 clips.run();
-                recomendationPanel.setText(router.getTexto());
             }
             
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_comprarActionPerformed
-
-    private void recomendationPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recomendationPanelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_recomendationPanelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -394,10 +388,11 @@ public class Vcliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> libros;
     private javax.swing.JTextField movimiento_literario;
     private javax.swing.JTextField publico;
-    private javax.swing.JTextField recomendationPanel;
+    private javax.swing.JTextArea recomendationPanel;
     private javax.swing.JTextField tematica;
     private javax.swing.JTextField titulo;
     // End of variables declaration//GEN-END:variables
