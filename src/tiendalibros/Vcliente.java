@@ -411,6 +411,7 @@ public class Vcliente extends javax.swing.JFrame {
             i++;
         }
         libros.setListData(aux);
+        
     }//GEN-LAST:event_anadirActionPerformed
 
 
